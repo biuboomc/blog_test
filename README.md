@@ -20,7 +20,7 @@ $$
 
 |      ![loop](./loop_cn.svg)      |
 | :------------------------------: |
-| 表征监控的性能随 Loop 增加而下降 |
+| 语言模型实践中三个层次的性能间存在差异 |
 
 换句话说，模型是一个**“心里有数” (RR)，但“嘴上说不明白” (SV)，导致“手头做不对” (TP)** 的矛盾体。CoT（思维链）技术的出现，给出了一条让 $P_{TP}$ 逐渐追上 $P_{SV}$ 的路线。**但谁来解决 $P_{SV}$ 和 $P_{RR}$ 之间的脱节？** 为什么模型深层的直觉无法完美映射到显性的语言上？
 
@@ -151,3 +151,4 @@ $$
 [7] Zhu R J, Wang Z, Hua K, et al. Scaling latent reasoning via looped language models[J]. arXiv preprint arXiv:2510.25741, 2025.
 
 [8] Lindsey J. Emergent introspective awareness in large language models[J]. arXiv preprint arXiv:2601.01828, 2026.
+
