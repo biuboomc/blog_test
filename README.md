@@ -18,9 +18,9 @@ $$
 \sup_{\pi} P_{TP}(\pi) \le \sup_{\pi,A,s} P_{SV}(\pi,A,s) \le \sup_{\pi,A,l,g} P_{RR}(\pi,A,l,g)
 $$
 
-|![loop](./loop_cn.svg) |
-| :----------------------------------------------------------: |
-|    表征监控的性能随 Loop 增加而下降    |
+|      ![loop](./loop_cn.svg)      |
+| :------------------------------: |
+| 表征监控的性能随 Loop 增加而下降 |
 
 换句话说，模型是一个**“心里有数” (RR)，但“嘴上说不明白” (SV)，导致“手头做不对” (TP)** 的矛盾体。CoT（思维链）技术的出现，给出了一条让 $P_{TP}$ 逐渐追上 $P_{SV}$ 的路线。**但谁来解决 $P_{SV}$ 和 $P_{RR}$ 之间的脱节？** 为什么模型深层的直觉无法完美映射到显性的语言上？
 
@@ -49,17 +49,17 @@ $$
 >
 > **怎么Loop**
 >
-> - **PonderLM** 将原本的离散语言预测转化为基于预测概率对所有 Token 的 Embedding 进行加权求和，以此迭代改进预测结果。
-> - **Retrofitting-Recurrencet** 选择了一条改造的路线，它改造现有模型，仅让中间的若干层变成循环层，而保持浅层和深层用于编码与解码。
-> - **THINK-AT-HARD** 在迭代过程中引入 LoRA 适配器与 Duo-causal attention，手把手地“教”模型学会如何利用循环带来的额外计算量。
+> - **PonderLM** [1,2] 将原本的离散语言预测转化为基于预测概率对所有 Token 的 Embedding 进行加权求和，以此迭代改进预测结果。
+> - **Retrofitting-Recurrencet** [3] 选择了一条改造的路线，它改造现有模型，仅让中间的若干层变成循环层，而保持浅层和深层用于编码与解码。
+> - **THINK-AT-HARD** [4] 在迭代过程中引入 LoRA 适配器与 Duo-causal attention，手把手地“教”模型学会如何利用循环带来的额外计算量。
 >
 > **在哪 Loop？**
 >
 > > 并不是所有的词都值得“深思熟虑”。像“的”、“是”这样的停用词不需要 Loop，而复杂的逻辑节点则需要多次迭代。 
 >
-> - **Google 的 MoR (Mixture-of-Depths)** 引入了路由机制，动态学习每个 Token 应该分配多少计算预算（即循环几次）。
+> - **Google 的 MoR** [5] 引入了路由机制，动态学习每个 Token 应该分配多少计算预算（即循环几次）。
 > - **THINK-AT-HARD** 使用 Oracle Iteration Policy，根据 Base Model 的 SFT 变体是否预测正确，来倒推该 Token 是否需要进入循环模式。
-> - **SEED 的 OURO 模型** 引入了**“早停机制”**。它在预训练阶段就对最大深度内的每次 Loop 进行了训练，利用熵正则化损失和专门设计的自适应门控训练，让模型学会自主判断输出时机。
+> - **SEED 的 OURO 模型** [7] 引入了**“早停机制”**。它在预训练阶段就对最大深度内的每次 Loop 进行了训练，利用熵正则化损失和专门设计的自适应门控训练，让模型学会自主判断输出时机。
 >
 > 在本次实验中，我们选择了 **OURO** 模型作为研究对象。这不仅是因为它在训练规模和性能上的优异表现，更因为其对 **vLLM** 推理框架的良好支持，使我们能够更高效地在验证关于“直觉”与“表达”的假设。
 
@@ -79,17 +79,17 @@ $$
 
 - **好消息：** 语言验证的准确率确实随着 Loop 呈上升趋势。模型确实因为“深思熟虑”而变得更能用语言解释清楚问题。
 
-| ![cot](./cot.svg "语言验证能力随 Loop 增加而增长") |
-| :----------------------------------------------------------: |
-|                语言验证能力随 Loop 增加而增长                |
-| ![gap](./gap.svg "Gap 随 Loop 增加而下降") |
-|    语言验证能力随 Loop 增加而增长，Gap 随 Loop 增加而下降    |
+|   ![cot](./cot.svg "语言验证能力随 Loop 增加而增长")   |
+| :----------------------------------------------------: |
+|             语言验证能力随 Loop 增加而增长             |
+|       ![gap](./gap.svg "Gap 随 Loop 增加而下降")       |
+| 语言验证能力随 Loop 增加而增长，Gap 随 Loop 增加而下降 |
 
 - **坏消息（或者说有趣的代价）：** Gap 的缩小，部分原因竟然是因为**表征监控的性能下降了**。
 
 | ![lp Logo](./lp.svg "表征监控的性能随 Loop 增加而下降") |
-| :----------------------------------------------------------: |
-|    表征监控的性能随 Loop 增加而下降    |
+| :-----------------------------------------------------: |
+|            表征监控的性能随 Loop 增加而下降             |
 
 这似乎暗示了一个残酷的权衡：**Loop 的过程虽然整理了思路，但也造成了原始信息的熵减或丢失。** 如果“想得太久”的代价是磨损了“直觉”的敏锐度，这是否得不偿失？这是我们需要深思的问题。
 
@@ -97,7 +97,7 @@ $$
 
 #### 发现二：薛定谔的“内省”——它真的知道自己在想什么吗？
 
-为了验证模型是否真的具备“内省”能力，我们参考 Anthropic 的实验设置，做了一个**“思维植入”测试**。
+为了验证模型是否真的具备“内省”能力，我们参考 Anthropic 的实验设置 [8]，做了一个**“思维植入”测试**。
 
 我们在模型“思考”的过程中，强行注入一个特定的词向量（Concept Vector），然后看模型能不能意识到：“嘿，刚才有个奇怪的概念钻进我脑子里了。”
 
@@ -124,6 +124,8 @@ $$
 
 关于对问题的建模、实验的详细数据等，我们在以下[Report](http://www.github.com)中进行了更完整的讨论。
 
+
+
 @article{,
 
   title={},
@@ -134,3 +136,18 @@ $$
 
 }
 
+
+
+[1] Zeng B, Song S, Huang S, et al. Pretraining Language Models to Ponder in Continuous Space[J]. arXiv preprint arXiv:2505.20674, 2025.
+
+[2] Zeng B, Li H, Song S, et al. PonderLM-2: Pretraining LLM with Latent Thoughts in Continuous Space[J]. arXiv preprint arXiv:2509.23184, 2025.
+
+[3] McLeish S, Li A, Kirchenbauer J, et al. Teaching Pretrained Language Models to Think Deeper with Retrofitted Recurrence[J]. arXiv preprint arXiv:2511.07384, 2025.
+
+[4] Fu T, You Y, Chen Z, et al. Think-at-Hard: Selective Latent Iterations to Improve Reasoning Language Models[J]. arXiv preprint arXiv:2511.08577, 2025.
+
+[5] Bae S, Kim Y, Bayat R, et al. Mixture-of-recursions: Learning dynamic recursive depths for adaptive token-level computation[J]. arXiv preprint arXiv:2507.10524, 2025.
+
+[7] Zhu R J, Wang Z, Hua K, et al. Scaling latent reasoning via looped language models[J]. arXiv preprint arXiv:2510.25741, 2025.
+
+[8] Lindsey J. Emergent introspective awareness in large language models[J]. arXiv preprint arXiv:2601.01828, 2026.
