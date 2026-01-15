@@ -1,5 +1,10 @@
 # Loop as a Bridge: Can Looped Transformers Close the Gap Between Outputs and Representations?
 
+<div align="right">
+  <a href="./README.md">中文</a> | <b>English</b>
+</div>
+
+
 #### Introduction: When Expression Lags Behind Thought, Cognition Lags Behind Perception
 
 Have you noticed that large language models often exhibit a kind of “expression lag”?
