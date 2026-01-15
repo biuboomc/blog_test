@@ -122,7 +122,7 @@ $$
 
 
 
-关于对问题的建模、实验的详细数据等，我们在以下[Report](http://www.github.com)中进行了更完整的讨论。
+关于对问题的建模、实验的详细数据等，我们在以下[Report](https://github.com/biuboomc/L-A-B/blob/main/Loop_blog_report_0114.pdf)中进行了更完整的讨论。
 
 
 
@@ -151,6 +151,7 @@ $$
 [7] Zhu R J, Wang Z, Hua K, et al. Scaling latent reasoning via looped language models[J]. arXiv preprint arXiv:2510.25741, 2025.
 
 [8] Lindsey J. Emergent introspective awareness in large language models[J]. arXiv preprint arXiv:2601.01828, 2026.
+
 
 
 
