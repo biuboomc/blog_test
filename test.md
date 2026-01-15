@@ -3,9 +3,9 @@
 
 <div style="display:flex; gap:.5rem; align-items:center; margin: 0 0 1rem 0;">
   <strong>Language:</strong>
-  <a id="lang-zh" href="./loop_cn.md">中文</a>
+  <a id="lang-zh" href="./README.md">中文</a>
   <span>|</span>
-  <a id="lang-en" href="./loop_en.md">English</a>
+  <a id="lang-en" href="./blog_en.md">English</a>
 </div>
 
 <script>
