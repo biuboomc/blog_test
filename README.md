@@ -1,5 +1,10 @@
 # 以循环为桥：循环Transformers能否弥合输出与表征的差距?
 
+<div align="right">
+  <b>中文</b> | <a href="./blog_en.md">English</a>
+</div>
+
+
 #### 引言：表达滞后思维，认知滞后感知
 
 你是否发现，大模型总是存在一种“表达滞后”的现象？
@@ -151,6 +156,7 @@ $$
 [7] Zhu R J, Wang Z, Hua K, et al. Scaling latent reasoning via looped language models[J]. arXiv preprint arXiv:2510.25741, 2025.
 
 [8] Lindsey J. Emergent introspective awareness in large language models[J]. arXiv preprint arXiv:2601.01828, 2026.
+
 
 
 
