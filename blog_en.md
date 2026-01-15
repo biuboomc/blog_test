@@ -1,7 +1,7 @@
 # Loop as a Bridge: Can Looped Transformers Truly Link Representation Space and Natural Language Outputs?
 
 <div align="right">
-  <a href="./markdown.md">中文</a> | <b>English</b>
+  <a href="./README.md">中文</a> | <b>English</b>
 </div>
 
 
@@ -130,13 +130,13 @@ At the same time, our results highlight a more subtle truth: **looping can make 
 For a fuller discussion of our formulation of gaps, experimental details, and complete results, see the [Report]([http://www.github.com](https://github.com/biuboomc/L-A-B/blob/main/Loop_blog_report_0114.pdf)).
 
 
-
+```
 @article{,
   title={},
   author={},
   journal={URL https://github.com/biuboomc/L-A-B/blob/main/Loop_blog_report_0114.pdf}
 }
-
+```
 
 
 [1] Zeng B, Song S, Huang S, et al. Pretraining Language Models to Ponder in Continuous Space[J]. arXiv preprint arXiv:2505.20674, 2025.
