@@ -18,7 +18,7 @@ $$
 \sup_{\pi} P_{TP}(\pi) \le \sup_{\pi,A,s} P_{SV}(\pi,A,s) \le \sup_{\pi,A,l,g} P_{RR}(\pi,A,l,g)
 $$
 
-|      ![loop](./loop_cn.svg)      |
+|      ![loop](./loop.svg)      |
 | :------------------------------: |
 | A gap often exists among the three layers in practice |
 
